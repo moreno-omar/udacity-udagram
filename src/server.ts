@@ -30,12 +30,12 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   /**************************************************************************** */
 
   // getting template to modify
-  pp.get( "/persons/", ( req: Request, res: Response ) => {
-    let { name } = req.query;
+  pp.get( "/filteredimage/", ( req: Request, res: Response ) => {
+    let { URL } = req.query;
 
-    if ( !name ) {
+    if ( !URL ) {
       return res.status(400)
-                .send(`name is required`);
+                .send(`URL required`);
     }
 
     return res.status(200)

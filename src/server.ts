@@ -30,16 +30,18 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   /**************************************************************************** */
 
   // getting template to modify
-  pp.get( "/filteredimage/", ( req: Request, res: Response ) => {
-    let { URL } = req.query;
+  app.get( "/filteredimage/", ( req: Request, res: Response ) => {
+    let { image_url } = req.query;
 
-    if ( !URL ) {
+    if ( !image_url ) {
       return res.status(400)
                 .send(`URL required`);
     }
 
+    let { image_file } = filterImageFromURL(image_url)
+
     return res.status(200)
-              .send(`Welcome to the Cloud, ${name}!`);
+              .send(`Welcome to the Cloud, ${image_url}!`);
   } );
   //! END @TODO1
 

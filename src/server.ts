@@ -40,8 +40,11 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
     let { image_file } = filterImageFromURL(image_url)
 
-    return res.status(200)
-              .send(`Welcome to the Cloud, ${image_url}!`);
+    //working on it, should be correct syntax to send image as file
+    return res.sendFile('${image_file}');
+              //.send(`Welcome to the Cloud, ${image_file}!`);
+//    return res.status(200)
+//                .send(image_file);
   } );
   //! END @TODO1
 

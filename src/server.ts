@@ -9,7 +9,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
   // Set the network port
   const port = process.env.PORT || 8082;
-  
+
   // Use the body parser middleware for post requests
   app.use(bodyParser.json());
 
@@ -29,14 +29,27 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
   /**************************************************************************** */
 
+  // getting template to modify
+  app.get( "/persons/:name",
+      ( req: Request, res: Response ) => {
+        let { name } = req.params;
+
+        if ( !name ) {
+          return res.status(400)
+                    .send(`name is required`);
+        }
+
+        return res.status(200)
+                  .send(`Welcome to the Cloud, ${name}!`);
+    } );
   //! END @TODO1
-  
+
   // Root Endpoint
   // Displays a simple message to the user
   app.get( "/", async ( req, res ) => {
     res.send("try GET /filteredimage?image_url={{}}")
   } );
-  
+
 
   // Start the Server
   app.listen( port, () => {

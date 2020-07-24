@@ -30,18 +30,17 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   /**************************************************************************** */
 
   // getting template to modify
-  app.get( "/persons/:name",
-      ( req: Request, res: Response ) => {
-        let { name } = req.params;
+  pp.get( "/persons/", ( req: Request, res: Response ) => {
+    let { name } = req.query;
 
-        if ( !name ) {
-          return res.status(400)
-                    .send(`name is required`);
-        }
+    if ( !name ) {
+      return res.status(400)
+                .send(`name is required`);
+    }
 
-        return res.status(200)
-                  .send(`Welcome to the Cloud, ${name}!`);
-    } );
+    return res.status(200)
+              .send(`Welcome to the Cloud, ${name}!`);
+  } );
   //! END @TODO1
 
   // Root Endpoint

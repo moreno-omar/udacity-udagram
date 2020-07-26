@@ -29,19 +29,26 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
   /**************************************************************************** */
 
+
   // getting template to modify
-  app.get( "/filteredimage/", ( req: Request, res: Response ) => {
-    let { image_url } = req.query;
+ app.get( "/filteredimage/", ( req: Request, res: Response ) => {
+   let { image_url } = req.query;
 
-    if ( !image_url ) {
-      return res.status(400)
-                .send(`URL required`);
+   if ( !image_url ) {
+     return res.status(400)
+               .send(`URL required`);
     }
+    const filteredPath = await filterImageFromURL(image_url);
 
-    let { image_file } = filterImageFromURL(image_url)
+    res.status(200).sendFile(filteredPath, function cleanUp() {
+// 4. deletes any files on the server on finish of the response
+     deleteLocalFiles([filteredPath]);
+ });
+
 
     //working on it, should be correct syntax to send image as file
-    return res.sendFile('${image_file}');
+    //return res.sendFile('${image_file}');
+    //return res.send(`${image_file}`);
               //.send(`Welcome to the Cloud, ${image_file}!`);
 //    return res.status(200)
 //                .send(image_file);
